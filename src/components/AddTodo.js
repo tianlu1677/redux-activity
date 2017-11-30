@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 export default class AddTodo extends Component {
   static defaultProps = {
@@ -19,7 +20,7 @@ export default class AddTodo extends Component {
   handleClick(e) {
     const node = this.refs.input
     const text = node.value.trim() 
-    const createdAt = (new Date()).toString()
+    const createdAt = moment('2016-01-01T23:35:01').format().toString();
     this.props.onAddClick(text, createdAt) // 向父组件传递dispatch
     node.value = ''
   }
