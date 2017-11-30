@@ -42,13 +42,13 @@ export function receivePosts(subreddit, json) {
 }
 
 // thunk funtion
-function fetchPosts(subreddit) {
+export function fetchPosts(subreddit) {
 	return function (dispatch) {
 		dispatch(requestPosts(subreddit))
 
 		console.log('fetch post ')
     return axios.get(`http://www.subreddit.com/r/${subreddit}.json`)
-    	.then(response => response.json())
+    	.then(response => response.data)
     	.then(json => dispatch(receivePosts(subreddit, json)))
 
 	}
