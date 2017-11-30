@@ -10,13 +10,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { createStore } from 'redux'
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+
 import { Provider } from 'react-redux'
 import App from './containers/App'
 import todoApp from './reducers/reducers'
 import registerServiceWorker from './registerServiceWorker';
 
-let store = createStore(todoApp)
+const composeEnhancers = composeWithDevTools({
+  // Specify name here, actionsBlacklist, actionsCreators and other options if needed
+});
+let store = createStore(todoApp, composeEnhancers(
+  
+))
+
 
 let rootElement = document.getElementById('root')
 ReactDOM.render(

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
-import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from '../actions/actions'
+import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters, deleteTodo, removeTodo } from '../actions/actions'
 import AddTodo from '../components/AddTodo'
 import TodoList from '../components/TodoList'
 import Footer from '../components/Footer'
+import Operator from '../components/Operator';
 
 class App extends Component {
   render() {
@@ -13,19 +14,26 @@ class App extends Component {
     return (
       <div>
         <AddTodo
-          onAddClick={text =>
-            dispatch(addTodo(text))
+          onAddClick={(text, createdAt) =>
+            dispatch(addTodo(text, createdAt))
           } />
         <TodoList
           todos={visibleTodos}
           onTodoClick={index =>
             dispatch(completeTodo(index))
-          } />
+          }
+          onRemoveClick={index => 
+            dispatch(removeTodo(index))
+          }
+           />          
         <Footer
           filter={visibilityFilter}
           onFilterChange={nextFilter =>
             dispatch(setVisibilityFilter(nextFilter))
           } />
+        <Operator
+          onDelete={() => dispatch(deleteTodo()) }
+         />  
       </div>
     )
   }
@@ -34,7 +42,8 @@ class App extends Component {
 App.propTypes = {
   visibleTodos: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired
+    completed: PropTypes.bool.isRequired,
+
   }).isRequired).isRequired,
   visibilityFilter: PropTypes.oneOf([
     'SHOW_ALL',
@@ -51,7 +60,9 @@ function selectTodos(todos, filter) {
       return todos.filter(todo => todo.completed)
     case VisibilityFilters.SHOW_ACTIVE:
       return todos.filter(todo => !todo.completed)    
-
+    default:
+      return todos
+        
   }
 }
 
