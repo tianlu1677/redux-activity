@@ -6,6 +6,7 @@ import AddTodo from '../components/AddTodo'
 import TodoList from '../components/TodoList'
 import Footer from '../components/Footer'
 import Operator from '../components/Operator';
+import UndoRedo from '../components/UndoRedo';
 
 class App extends Component {
   render() {
@@ -34,6 +35,7 @@ class App extends Component {
         <Operator
           onDelete={() => dispatch(deleteTodo()) }
          />  
+         <UndoRedo />
       </div>
     )
   }
@@ -70,7 +72,7 @@ function selectTodos(todos, filter) {
 // Note: use https://github.com/faassen/reselect for better performance.
 function select(state) {
   return {
-    visibleTodos: selectTodos(state.todos, state.visibilityFilter),
+    visibleTodos: selectTodos(state.todos.present, state.visibilityFilter),
     visibilityFilter: state.visibilityFilter
   }
 }
