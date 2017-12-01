@@ -10,20 +10,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import thunkMiddleware from 'redux-thunk';
-import {createLogger} from 'redux-logger';
 
 import { Provider } from 'react-redux'
 import App from './containers/App'
 import todoApp from './reducers/todo_reducers'
-import rootReducer from './reducers/reddit_reducers';
 import Reddit from './containers/Reddit';
+import configureStore from './stores/reddit_store';
 import registerServiceWorker from './registerServiceWorker';
-
-// 记录action的日志行为
-const loggerMiddleware = createLogger()
 
 
 const composeEnhancers = composeWithDevTools({
@@ -45,12 +40,8 @@ ReactDOM.render(
 )
 
 // reddit
-
-let reddit_store = createStore(rootReducer, 
-	composeEnhancers(), 
-	applyMiddleware(thunkMiddleware, loggerMiddleware) 
-)
-
+const reddit_store = configureStore()
+console.log('reddit_store', reddit_store)
 ReactDOM.render(
 	<Provider store={reddit_store}>
 		<Reddit />

@@ -1,7 +1,3 @@
-
-
-
-
 import {  combineReducers} from "redux";
 import {
   SELECT_SUBREDDIT,
@@ -10,7 +6,7 @@ import {
   RECEIVE_POSTS
 } from '../actions/reddit_actions';
 
-function selectedsubreddit(state = 'reactjs', action) {
+function selectedSubreddit(state = 'reactjs', action) {
   switch (action.type) {
     case SELECT_SUBREDDIT:
       return action.subreddit
@@ -48,9 +44,13 @@ function postsBySubreddit(state = {}, action) {
 	}
 }
 
+function test(state="hello", action) {
+  return "hello"
+}
 const rootReducer = combineReducers({
 	postsBySubreddit,
-	selectedsubreddit,
+	selectedSubreddit,
+  test
 })
 
 export default rootReducer;
