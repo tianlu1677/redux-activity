@@ -1,3 +1,5 @@
+// 如果增加一中类型的话，是在原来的基础上修改，还是新增一种
+// 
 import axios from 'axios';
 // 选择某个帖子
 export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
